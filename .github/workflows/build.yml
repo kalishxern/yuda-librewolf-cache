@@ -1,6 +1,6 @@
 name: "Build LibreWolf"
 on:
-  workflow_dispatch: # Allows you to start the build manually
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -9,7 +9,7 @@ jobs:
     - uses: cachix/install-nix-action@v25
     - uses: cachix/cachix-action@v14
       with:
-        name: my-librewolf-cache # Replace with your cache name
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+        name: yuda-librewolf-cache
+        authToken: '${{ yuda-librewolf-cache.cachix.org-1:Ua0xCOsrpZeHRzPx15/hmloCcsVF3Aa9wvCRVLkxPRg= }}'
     - name: Build LibreWolf
       run: nix build nixpkgs#librewolf
