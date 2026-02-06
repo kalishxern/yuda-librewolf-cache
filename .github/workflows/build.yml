@@ -12,7 +12,6 @@ jobs:
     - name: Install Nix
       uses: cachix/install-nix-action@v25
       with:
-        nix_path: nixpkgs=channel:nixos-unstable
         extra_nix_config: |
           experimental-features = nix-command flakes
     
@@ -22,5 +21,10 @@ jobs:
         name: yuda-librewolf-cache
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     
-    - name: Build LibreWolf from unstable
-      run: nix-build '<nixpkgs>' -A librewolf --option substitute false
+    - name: Build LibreWolf from latest unstable
+      run: |
+        # Use flakes to get the absolute latest unstable
+        nix build github:NixOS/nixpkgs/nixpkgs-unstable#librewolf \
+          --no-link \
+          --option substitute false \
+          --print-build-logs
