@@ -20,5 +20,5 @@ jobs:
         name: yuda-librewolf-cache
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     
-    - name: Build LibreWolf from latest unstable
-      run: nix build github:NixOS/nixpkgs/nixpkgs-unstable#librewolf --no-link
+    - name: Build and mirror LibreWolf to Cachix
+  run: cachix watch-exec yuda-librewolf-cache nix build github:NixOS/nixpkgs/nixpkgs-unstable#librewolf --no-link
