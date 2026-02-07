@@ -12,8 +12,7 @@ jobs:
     - name: Install Nix
       uses: cachix/install-nix-action@v25
       with:
-        extra_nix_config: |
-          experimental-features = nix-command flakes
+        extra_nix_config: experimental-features = nix-command flakes
     
     - name: Setup Cachix
       uses: cachix/cachix-action@v14
@@ -22,9 +21,4 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     
     - name: Build LibreWolf from latest unstable
-      run: |
-        # Use flakes to get the absolute latest unstable
-        nix build github:NixOS/nixpkgs/nixpkgs-unstable#librewolf \
-          --no-link \
-          --option substitute false \
-          --print-build-logs
+      run: nix build github:NixOS/nixpkgs/nixpkgs-unstable#librewolf --no-link
