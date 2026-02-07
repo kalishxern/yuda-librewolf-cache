@@ -12,7 +12,8 @@ jobs:
     - name: Install Nix
       uses: cachix/install-nix-action@v25
       with:
-        extra_nix_config: experimental-features = nix-command flakes
+        extra_nix_config: |
+          experimental-features = nix-command flakes
     
     - name: Setup Cachix
       uses: cachix/cachix-action@v14
@@ -21,4 +22,4 @@ jobs:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     
     - name: Build and mirror LibreWolf to Cachix
-  run: cachix watch-exec yuda-librewolf-cache nix build github:NixOS/nixpkgs/nixpkgs-unstable#librewolf --no-link
+      run: cachix watch-exec yuda-librewolf-cache nix build github:NixOS/nixpkgs/nixpkgs-unstable#librewolf --no-link
